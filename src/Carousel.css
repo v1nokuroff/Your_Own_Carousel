@@ -1,0 +1,29 @@
+/*не работает пока */
+
+.container{
+    display: flex;
+    flex-direction: column ;
+    gap: 20px;
+    padding: 20px;
+  }
+  .carousel {
+    flex: 1;
+    border: 1px solid rgb(61, 68, 77);
+    padding: 10px;
+    text-align: center;
+    gap: 20px;
+  }
+  .image {
+    max-width: 100%;
+    height: auto;
+  }
+  .editor{
+    flex: 2;
+    border: 1px solid rgb(61, 68, 77);
+    padding: 10px;
+  }
+  .slideForm {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(61, 68, 77);
+  }

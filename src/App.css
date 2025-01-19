@@ -1,0 +1,15 @@
+.App {
+    top: 200px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 80vh;
+    max-width: 60vh;
+    background: #151b23;
+
+
+    color: white;
+
+}
