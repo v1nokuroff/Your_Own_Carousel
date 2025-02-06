@@ -1,4 +1,4 @@
-You can view the project on https://v1nokuroff.github.io/carousel/
+# You can view the project on https://v1nokuroff.github.io/Your_Own_Carousel
 
 # Getting Started with Create React App
 
