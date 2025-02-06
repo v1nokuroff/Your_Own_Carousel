@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { translations } from "./language/translations";
+import './Carousel.css'
 
 interface ItemProps {
   id: number;
@@ -112,7 +113,7 @@ const Carousel = () => {
                   style={styles.image}
                 />
               </a>
-              <p>{currentSlide.description || text.noDescription}</p>
+              <p className='label'>{currentSlide.description || text.noDescription}</p>
             </div>
           ) : null
         ) : (
@@ -175,7 +176,7 @@ const Carousel = () => {
                 )}
               </label>
             </div>
-            <div>
+            <div className='label'>
               <label>
                 {text.link}:{" "}
                 {slide.readonly ? (
@@ -192,7 +193,7 @@ const Carousel = () => {
                 )}
               </label>
             </div>
-            <div style={{ maxWidth: "500px", wordBreak: "break-word"}}>
+            <div className='label'>
               <label>
                 {text.imageURL}:{" "}
                 {slide.readonly ? (
@@ -209,7 +210,7 @@ const Carousel = () => {
                 )}
               </label>
             </div>
-            <div>
+            <div className='label' >
               <label>
                 {text.description}:{" "}
                 {slide.readonly ? (

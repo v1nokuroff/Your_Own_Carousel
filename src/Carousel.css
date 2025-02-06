@@ -27,3 +27,7 @@
     padding-bottom: 10px;
     border-bottom: 1px solid rgb(61, 68, 77);
   }
+  .label {
+    max-width: 500px;
+    word-break: break-word;
+  }
