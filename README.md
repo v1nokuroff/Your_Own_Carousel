@@ -1,3 +1,5 @@
+You can view the project on https://v1nokuroff.github.io/carousel/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
