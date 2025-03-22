@@ -1,17 +1,25 @@
 import React, {useState} from 'react';
-import { translations } from './language/translations';
 import Carousel from './Carousel';
+import './Carousel.css'
 
-type Language = 'en' | 'ru';
 
+export type TypeLanguage = 'en' | 'ru';
 
 
 const App: React.FC = () => {
-  const [language, setLanguage] = useState<Language>('en');
-
-  return (
-      <div>
-        <Carousel />
+  const [language, setLanguage] = useState<TypeLanguage>('en');
+  const LanguageSwitcher = () => {
+      return (
+          <div className='button-group switcher'>
+              <button className='button' onClick={() => setLanguage('ru')}>RU</button>
+              <button className='button' onClick={() => setLanguage('en')}>EN</button>
+          </div>
+      )
+  }
+    return (
+      <div className={'App'}>
+          <LanguageSwitcher />
+          <Carousel language={language} />
       </div>
   );
 };

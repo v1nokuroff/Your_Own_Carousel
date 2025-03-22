@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { translations } from "./language/translations";
-import './Carousel.css'
-
 interface ItemProps {
   id: number;
   enabled: boolean;
@@ -12,16 +10,18 @@ interface ItemProps {
   description?: string;
   readonly: boolean;
 }
+type TypeLanguage = {
+  language: 'ru' | 'en',
+}
 
 
 
-
-const Carousel = () => {
-//   const { language } = useLanguage();       
-  const text = translations['en'];
+const Carousel:React.FC<TypeLanguage> = ({language}) => {
+  const text = translations[language];
 
   const [slides, setSlides] = useState<ItemProps[]>([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
+
 
   // Carousel function
   useEffect(() => {
@@ -80,12 +80,6 @@ const Carousel = () => {
             return slide;
           }
           return { ...slide, readonly: !slide.readonly, enabled: false };
-          // if (type === 'edit') {
-          //   return { ...slide, readonly: !slide.readonly, enabled: false };
-          // }
-          // if (type === 'enable') {
-          //   return { ...slide, readonly: !slide.readonly, enabled: !slide.enabled };
-          // }
         }
         return slide;
       })
@@ -99,9 +93,9 @@ const Carousel = () => {
   const currentSlide = enabledSlides[currentSlideIndex % enabledSlides.length];
 
   return (
-    <div style={styles.container}>
+    <div className='container' >
       {/* Slides carousel block */}
-      <div style={styles.carousel}>
+      <div className='carousel' >
         <h2>{text.slideCarousel}</h2>
         {enabledSlides.length > 0 ? (
           currentSlide ? (
@@ -110,7 +104,7 @@ const Carousel = () => {
                 <img
                   src={currentSlide.path || "https://via.placeholder.com/600x300"}
                   alt={`Slide ${currentSlide.position}`}
-                  style={styles.image}
+                  className='image'
                 />
               </a>
               <p className='label'>{currentSlide.description || text.noDescription}</p>
@@ -122,23 +116,24 @@ const Carousel = () => {
       </div>
 
       {/* Creating and editing slides Block */}
-      <div style={styles.editor}>
+      <div className='editor'>
         <h2 style={{ textAlign: "center" }}>{text.slideManagement}</h2>
         {slides.map((slide) => (
           <div
+            className='slide-form'
             key={slide.id}
-            style={{ ...styles.slideForm, borderBottom: "1px solid rgb(61, 68, 77)" }}
           >
+            <input
+              className='input checkbox'
+              readOnly={slide.readonly}
+              type="checkbox"
+              checked={slide.enabled}
+              onChange={(e) =>
+                handleInputChange(slide.id, "enabled", e.target.checked)
+                //   handleEditSlide(slide.id, 'enable')
+              }
+            />
             <label>
-              <input
-                readOnly={slide.readonly}
-                type="checkbox"
-                checked={slide.enabled}
-                onChange={(e) =>
-                  handleInputChange(slide.id, "enabled", e.target.checked)
-                  //   handleEditSlide(slide.id, 'enable')
-                }
-              />
               {text.enable}
             </label>
             <div>
@@ -148,6 +143,7 @@ const Carousel = () => {
                   slide.delay
                 ) : (
                   <input
+                    className='input'
                     style={{ width: "300px" }}
                     readOnly={slide.readonly}
                     type="number"
@@ -166,6 +162,7 @@ const Carousel = () => {
                   slide.position
                 ) : (
                   <input
+                    className='input'
                     readOnly={slide.readonly}
                     type="number"
                     value={slide.position}
@@ -183,6 +180,7 @@ const Carousel = () => {
                   slide.link
                 ) : (
                   <input
+                    className='input'
                     readOnly={slide.readonly}
                     type="text"
                     value={slide.link}
@@ -200,6 +198,7 @@ const Carousel = () => {
                   slide.path
                 ) : (
                   <input
+                    className='input'
                     readOnly={slide.readonly}
                     type="text"
                     value={slide.path}
@@ -217,58 +216,35 @@ const Carousel = () => {
                   slide.description
                 ) : (
                   <textarea
+                    className='input'
                     readOnly={slide.readonly}
                     value={slide.description}
                     onChange={(e) =>
                       handleInputChange(slide.id, "description", e.target.value)
                     }
                     rows={3}
-                    style={{ width: "100%", resize: "none" }}
+                    style={{ width: "100%", resize: "vertical" }}
                   />
                 )}
               </label>
             </div>
-            <button onClick={() => handleDeleteSlide(slide.id)}>
-              {text.deleteSlide}
-            </button>
-            <button onClick={() => handleEditSlide(slide.id)}>
-              {slide.readonly ? text.edit : text.save}
-            </button>
+            <div className='button-group form'>
+              <button className='button' onClick={() => handleDeleteSlide(slide.id)}>
+                {text.deleteSlide}
+              </button>
+              <button className='button' onClick={() => handleEditSlide(slide.id)}>
+                {slide.readonly ? text.edit : text.save}
+              </button>
+            </div>
           </div>
         ))}
-        <button onClick={handleAddSlide}>{text.createNewSlide}</button>
+        <button className='button create' onClick={handleAddSlide}>{text.createNewSlide}</button>
       </div>
     </div>
   );
 };
 
-const styles = {
-  container: {
-    color: 'white',
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: "20px",
-    padding: "20px",
-  },
-  carousel: {
-    flex: 1,
-    border: "1px solid rgb(61, 68, 77)",
-    padding: "10px",
-    textAlign: "center" as const,
-  },
-  image: {
-    maxWidth: "100%",
-    maxHeight: "200px",
-  },
-  editor: {
-    flex: 2,
-    border: "1px solid rgb(61, 68, 77)",
-    padding: "10px",
-  },
-  slideForm: {
-    marginBottom: "20px",
-    paddingBottom: "10px",
-  },
-};
+
+
 
 export default Carousel;
