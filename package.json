@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://v1nokuroff.github.io/Your_Own_Carousel",
+  "homepage": "https://v1nokuroff.github.io/your-own-carousel",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
